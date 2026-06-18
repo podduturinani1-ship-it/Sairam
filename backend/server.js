@@ -103,6 +103,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-httpServer.listen(port, () => {
+httpServer.listen(port, '0.0.0.0', () => {
   console.log(`Server is running on port ${port}`);
 });
