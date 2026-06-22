@@ -9,7 +9,7 @@
 
 A complete, production-ready restaurant management system and online ordering platform. Built with the **MERN stack** (MongoDB, Express, React, Node.js) and powered by **Socket.IO** for real-time order tracking.
 
-🌐 **Live Demo:** [https://sairam-73yn.onrender.com](https://sairam-73yn.onrender.com)
+🌐 **Live Demo:** [https://sairam-73ym.onrender.com](https://sairam-73ym.onrender.com)
 
 ---
 
