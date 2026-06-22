@@ -11,6 +11,7 @@ const FEATURED_DISHES = [
 
 const Home = () => {
   const [liveStatus, setLiveStatus] = useState({ occupancy: 75, tablesAvailable: 4, waitTime: 15, trendingDish: 'Chicken Biryani' });
+  const [featured, setFeatured] = useState(FEATURED_DISHES);
 
   useEffect(() => {
     const fetchStatus = async () => {
@@ -21,7 +22,19 @@ const Home = () => {
         console.error('Failed to fetch live status', error);
       }
     };
+    const fetchMenu = async () => {
+      try {
+        const { data } = await axios.get(`${import.meta.env.VITE_API_URL}/menu`);
+        setFeatured(FEATURED_DISHES.map(dish => {
+          const dbDish = data.find(d => d.name === dish.name);
+          return dbDish && dbDish.imageUrl ? { ...dish, img: dbDish.imageUrl } : dish;
+        }));
+      } catch (error) {
+        console.error('Failed to fetch menu images', error);
+      }
+    };
     fetchStatus();
+    fetchMenu();
     const interval = setInterval(fetchStatus, 60000); // update every minute
     return () => clearInterval(interval);
   }, []);
@@ -109,7 +122,7 @@ const Home = () => {
           <p className="section-subtitle">Curated masterpieces prepared by our expert chefs.</p>
           
           <div className="grid md:grid-cols-3 gap-8">
-            {FEATURED_DISHES.map((dish, idx) => (
+            {featured.map((dish, idx) => (
               <motion.div 
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}
